@@ -1,11 +1,9 @@
 package com.example.tmdbmadproject
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tmdbmadproject.databinding.ActivityHomeBinding
 
@@ -16,7 +14,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val navController = findNavController(R.id.nav_host_fragment)
 
@@ -29,7 +26,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_notifications
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.toolbarLayout.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
 }
