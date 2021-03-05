@@ -19,15 +19,13 @@ class HomeActivity : AppCompatActivity() {
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications
-            )
+        val topLevelDestinations = setOf(
+            R.id.navigation_home,
+            R.id.navigation_dashboard,
+            R.id.navigation_notifications
         )
 
-        binding.toolbarLayout.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
+        binding.toolbarLayout.toolbar.setupWithNavController(navController, AppBarConfiguration(topLevelDestinations))
+        binding.navView.setupWithNaveController(navController, topLevelDestinations)
     }
 }
