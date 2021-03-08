@@ -1,5 +1,6 @@
 package com.example.tmdbmadproject.di
 
+import com.example.tmdbmadproject.data.Constants
 import com.example.tmdbmadproject.data.api.TmdbApi
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,7 @@ class NetworkModule {
     @Singleton
     fun providesRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
+            .baseUrl(Constants.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
