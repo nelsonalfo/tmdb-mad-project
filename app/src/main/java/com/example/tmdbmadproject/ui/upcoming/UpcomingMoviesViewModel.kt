@@ -1,4 +1,4 @@
-package com.example.tmdbmadproject.ui.home
+package com.example.tmdbmadproject.ui.upcoming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
-    private val _text = MutableLiveData<String>().apply { value = "This is home Fragment" }
+class UpcomingMoviesViewModel @Inject constructor() : ViewModel() {
+    private val _text = MutableLiveData<String>().apply { value = "This is upcoming movies Fragment" }
     val text: LiveData<String> = _text
 }

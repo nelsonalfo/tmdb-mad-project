@@ -1,4 +1,4 @@
-package com.example.tmdbmadproject.ui.dashboard
+package com.example.tmdbmadproject.ui.toprated
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.tmdbmadproject.databinding.FragmentDashboardBinding
+import com.example.tmdbmadproject.databinding.FragmentTopratedMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment() {
-    private var _binding: FragmentDashboardBinding? = null
+class TopRatedMoviesFragment : Fragment() {
+    private var _binding: FragmentTopratedMoviesBinding? = null
     private val binding get() = _binding!!
 
-    private val dashboardViewModel by viewModels<DashboardViewModel>()
+    private val dashboardViewModel by viewModels<TopRatedMoviesViewModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentTopratedMoviesBinding.inflate(inflater, container, false)
 
         setupLiveDataObservers()
 
