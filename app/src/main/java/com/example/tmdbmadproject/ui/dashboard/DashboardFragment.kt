@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.tmdbmadproject.databinding.FragmentDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
@@ -18,8 +20,13 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardViewModel.text.observe(viewLifecycleOwner) { binding.textDashboard.text = it }
+        setupLiveDataObservers()
+
         return binding.root
+    }
+
+    private fun setupLiveDataObservers() {
+        dashboardViewModel.text.observe(viewLifecycleOwner) { binding.textDashboard.text = it }
     }
 
     override fun onDestroyView() {
