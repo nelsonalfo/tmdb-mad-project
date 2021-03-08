@@ -2,6 +2,19 @@
 buildscript {
     ext {
         kotlin_version = "1.4.30"
+
+        retrofit_version = '2.9.0'
+        retrofit_okhttp3_logging_version = '4.9.0'
+
+        lifecycle_version = "2.3.0"
+
+        navigation_components_version = '2.3.3'
+
+        testing_junit_version = '4.13.2'
+        testing_truth_version = '1.1.2'
+        testing_mockK_version = '1.10.6'
+        testing_coroutines_version = '1.4.3'
+        testing_arch_version = '2.1.0'
     }
 
     repositories {
