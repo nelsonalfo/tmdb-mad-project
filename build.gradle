@@ -3,27 +3,35 @@ buildscript {
     ext {
         kotlin_version = "1.4.30"
 
-        retrofit_version = '2.9.0'
-        retrofit_okhttp3_logging_version = '4.9.0'
-
         lifecycle_version = "2.3.0"
 
         navigation_components_version = '2.3.3'
 
+        //Retrofit (Network)
+        retrofit_version = '2.9.0'
+        retrofit_okhttp3_logging_version = '4.9.0'
+
+        //Unit Testing
         testing_junit_version = '4.13.2'
         testing_truth_version = '1.1.2'
         testing_mockK_version = '1.10.6'
         testing_coroutines_version = '1.4.3'
         testing_arch_version = '2.1.0'
+
+        // Hilt (Dependency Injection)
+        di_hilt_version = "2.33-beta"
+        di_hilt_jetpack_version = "1.0.0-alpha03"
     }
 
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$di_hilt_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

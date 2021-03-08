@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -43,6 +45,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    //hilt (Dependency Injection)
+    implementation "com.google.dagger:hilt-android:$di_hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$di_hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$di_hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$di_hilt_jetpack_version"
 
     // Layout y Views
     implementation 'com.google.android.material:material:1.3.0'
