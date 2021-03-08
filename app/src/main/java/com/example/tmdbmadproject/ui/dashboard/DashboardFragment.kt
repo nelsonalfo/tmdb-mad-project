@@ -18,7 +18,7 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        dashboardViewModel.text.observe(viewLifecycleOwner, { binding.textDashboard.text = it })
+        dashboardViewModel.text.observe(viewLifecycleOwner) { binding.textDashboard.text = it }
         return binding.root
     }
 

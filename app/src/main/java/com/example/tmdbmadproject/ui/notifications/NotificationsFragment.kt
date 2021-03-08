@@ -18,7 +18,7 @@ class NotificationsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
 
-        notificationsViewModel.text.observe(viewLifecycleOwner, { binding.textNotifications.text = it })
+        notificationsViewModel.text.observe(viewLifecycleOwner) { binding.textNotifications.text = it }
 
         return binding.root
     }

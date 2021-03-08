@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        homeViewModel.text.observe(viewLifecycleOwner, { binding.textHome.text = it })
+        homeViewModel.text.observe(viewLifecycleOwner) { binding.textHome.text = it }
     }
 
     override fun onDestroyView() {

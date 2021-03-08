@@ -28,7 +28,7 @@ class DetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        detailViewModel.text.observe(viewLifecycleOwner, { value -> binding.detailText.text = value })
+        detailViewModel.text.observe(viewLifecycleOwner) { value -> binding.detailText.text = value }
     }
 
     override fun onDestroyView() {
