@@ -71,6 +71,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_okhttp3_logging_version"
 
+    //Glide (Images Management library)
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
     // unit testing
     testImplementation "junit:junit:$testing_junit_version"
     testImplementation "io.mockk:mockk:$testing_mockK_version"
