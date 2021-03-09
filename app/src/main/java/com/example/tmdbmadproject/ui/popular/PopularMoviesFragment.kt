@@ -32,7 +32,7 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
 
         viewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
 
-        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)x
+        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)
     }
 
     private fun setupViews() = with(binding) {
