@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.tmdbmadproject.base.setupWithNaveController
 import com.example.tmdbmadproject.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
