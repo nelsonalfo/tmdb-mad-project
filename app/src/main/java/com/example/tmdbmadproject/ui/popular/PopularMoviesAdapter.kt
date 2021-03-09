@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.ListItemMovieBinding
 
@@ -37,9 +38,10 @@ class PopularMoviesViewHolder(
     private val listener: (movie: MovieResume) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(movie: MovieResume) {
-        binding.movieTitle.text = movie.title
-        binding.movieDescription.text = movie.overview
-        itemView.setOnClickListener { listener.invoke(movie) }
+    fun bind(movie: MovieResume) = with(binding) {
+        movieTitle.text = movie.title
+        movieDescription.text = movie.overview
+        Glide.with(root).load(movie.posterUrl).into(moviePoster)
+        root.setOnClickListener { listener.invoke(movie) }
     }
 }
