@@ -6,9 +6,6 @@
     android:orientation="vertical"
     tools:context=".ui.detail.MovieDetailFragment">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar_layout"/>
-
     <TextView
         android:id="@+id/detail_text"
         android:layout_width="match_parent"
