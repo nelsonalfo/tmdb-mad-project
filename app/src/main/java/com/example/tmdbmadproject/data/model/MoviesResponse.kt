@@ -24,4 +24,10 @@ data class MovieResume(
     @SerializedName("adult") val adult: Boolean? = false,
     @SerializedName("overview") val overview: String? = "",
     @SerializedName("release_date") val releaseDate: String? = ""
-)
+) {
+    var posterUrl: String = ""
+}
+
+fun MovieResume.generatePosterUrl(configuration: TmdbConfiguration) = configuration.images?.let {
+    it.baseUrl?.replace("http", "https") + it.posterSizes?.find { posterSize -> posterSize == "w500" } + posterPath
+} ?: ""
