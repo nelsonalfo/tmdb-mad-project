@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmadproject.R
 import com.example.tmdbmadproject.base.BaseFragment
+import com.example.tmdbmadproject.base.show
+import com.example.tmdbmadproject.base.visible
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.FragmentPopularMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +32,7 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
 
         viewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
 
-        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)
+        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)x
     }
 
     private fun setupViews() = with(binding) {
@@ -44,10 +46,9 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
     }
 
     private fun handleViewState(viewState: PopularMoviesViewState) = with(binding) {
-        popularMoviesErrorTextView.visibility = if (viewState.isError) View.VISIBLE else View.GONE
-        popularMoviesRetryButton.visibility = if (viewState.isError) View.VISIBLE else View.GONE
-
-        popularMoviesProgressBar.apply { if (viewState.isLoading) show() else hide() }
+        popularMoviesErrorTextView.visible = viewState.isError
+        popularMoviesRetryButton.visible = viewState.isError
+        popularMoviesProgressBar.show = viewState.isLoading
 
         moviesAdapter.loadMovies(viewState.movies)
     }
