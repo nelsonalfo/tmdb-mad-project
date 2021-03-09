@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TmdbConfiguration(
     @SerializedName("images") var images: Images? = null,
-    @SerializedName("change_keys") var changeKeys: List<String>?
+    @SerializedName("change_keys") var changeKeys: List<String>? = null
 )
 
 data class Images(
