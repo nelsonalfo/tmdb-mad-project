@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.tmdbmadproject.databinding.FragmentMovieDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +27,7 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupViews() {
-        binding.toolbarLayout.toolbar.setupWithNavController(findNavController())
+        //binding.toolbarLayout.toolbar.setupWithNavController(findNavController())
     }
 
     private fun setupLiveDataObservers() {
