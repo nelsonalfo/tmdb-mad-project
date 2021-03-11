@@ -1,14 +1,15 @@
 package com.example.tmdbmadproject.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.tmdbmadproject.R
 import com.example.tmdbmadproject.base.BaseFragment
+import com.example.tmdbmadproject.base.loadFromUrl
 import com.example.tmdbmadproject.base.show
 import com.example.tmdbmadproject.base.visible
 import com.example.tmdbmadproject.databinding.FragmentMovieDetailBinding
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     private val detailViewModel by viewModels<MovieDetailViewModel>()
+    private val args: MovieDetailFragmentArgs by navArgs()
 
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -25,23 +27,36 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        detailViewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
+        setupViews()
 
-        arguments?.let { bundle ->
-            val args = MovieDetailFragmentArgs.fromBundle(bundle)
-            detailViewModel.sendIntention(MovieDetailIntentions.LoadDetails(args.movieId))
-        }
+        observeViewModel()
+
+        loadMovieDetail()
+    }
+
+    private fun setupViews() {
+        binding.movieDetailRetryButton.setOnClickListener { loadMovieDetail() }
+    }
+
+    private fun observeViewModel() {
+        detailViewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
+    }
+
+    private fun loadMovieDetail() {
+        detailViewModel.sendIntention(MovieDetailIntentions.LoadDetails(args.movieId))
     }
 
     private fun handleViewState(viewState: MovieDetailViewState) = with(binding) {
-        Log.d("NELSON", viewState.toString())
-
         progressBar.show = viewState.loading
-        movieDetailContainer.visible = viewState.loading.not()
+        movieDetailErrorContainer.visible = viewState.error
+        movieDetailContainer.visible = !viewState.loading && !viewState.error
 
         movieGenders.text = viewState.genres
         movieTitle.text = viewState.movieTitle
         movieDescription.text = viewState.overView
+
+        movieBackdropImageView.loadFromUrl(this@MovieDetailFragment, viewState.backdropUrl)
+        moviePosterImageView.loadFromUrl(this@MovieDetailFragment, viewState.posterUrl)
 
         movieVotes.apply {
             text = when {
@@ -52,14 +67,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
             }
 
             visible = text.isNotEmpty()
-        }
-
-        if (viewState.backdropUrl.isNotEmpty()) {
-            Glide.with(this@MovieDetailFragment).load(viewState.backdropUrl).into(movieBackdropImage)
-        }
-
-        if (viewState.posterUrl.isNotEmpty()) {
-            Glide.with(this@MovieDetailFragment).load(viewState.posterUrl).into(moviePoster)
         }
     }
 }

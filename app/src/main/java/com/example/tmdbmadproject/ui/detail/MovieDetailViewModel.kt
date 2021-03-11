@@ -2,7 +2,6 @@ package com.example.tmdbmadproject.ui.detail
 
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbmadproject.base.BaseViewModel
-import com.example.tmdbmadproject.data.model.Genre
 import com.example.tmdbmadproject.data.model.formatted
 import com.example.tmdbmadproject.data.repository.TmdbRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,9 @@ class MovieDetailViewModel @Inject constructor(private val repository: TmdbRepos
 
     override fun sendIntention(intention: MovieDetailIntentions) {
         when (intention) {
-            is MovieDetailIntentions.LoadDetails -> loadMovieDetails(intention.movieId)
+            is MovieDetailIntentions.LoadDetails -> if (state.loading || state.error) {
+                loadMovieDetails(intention.movieId)
+            }
         }
     }
 

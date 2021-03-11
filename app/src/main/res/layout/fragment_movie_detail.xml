@@ -17,12 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/movie_backdrop_image"
-            app:layout_constraintStart_toStartOf="@+id/movie_backdrop_image"
+            app:layout_constraintEnd_toStartOf="@+id/movie_backdrop_image_view"
+            app:layout_constraintStart_toStartOf="@+id/movie_backdrop_image_view"
             tools:visibility="visible">
 
             <ImageView
-                android:id="@+id/movie_backdrop_image"
+                android:id="@+id/movie_backdrop_image_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="#DDD"
@@ -48,11 +48,11 @@
                 app:layout_constraintVertical_bias="0">
 
                 <ImageView
-                    android:id="@+id/movie_poster"
+                    android:id="@+id/movie_poster_image_view"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:background="#BBB"
-                    android:contentDescription="@string/content_poster_image"/>
+                    android:contentDescription="@string/content_poster_image" />
 
             </androidx.cardview.widget.CardView>
 
@@ -152,6 +152,38 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/movie_detail_error_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/movie_detail_error_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/movie_detail_error_message"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/movie_detail_retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="@string/retry" />
+
+    </LinearLayout>
 
 </FrameLayout>
