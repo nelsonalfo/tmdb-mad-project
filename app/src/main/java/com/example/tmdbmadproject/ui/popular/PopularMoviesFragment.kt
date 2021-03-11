@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tmdbmadproject.R
 import com.example.tmdbmadproject.base.BaseFragment
 import com.example.tmdbmadproject.base.show
 import com.example.tmdbmadproject.base.visible
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.FragmentPopularMoviesBinding
-import com.example.tmdbmadproject.ui.detail.MovieDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,19 +29,27 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
 
         setupViews()
 
-        viewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
+        observeViewModel()
 
-        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)
+        loadPopularMovies()
     }
 
     private fun setupViews() = with(binding) {
-        popularMoviesRetryButton.setOnClickListener { viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies) }
+        popularMoviesRetryButton.setOnClickListener { loadPopularMovies() }
 
         popularMoviesRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = moviesAdapter
         }
+    }
+
+    private fun loadPopularMovies() {
+        viewModel.sendIntention(PopularMoviesIntentions.LoadPopularMovies)
+    }
+
+    private fun observeViewModel() {
+        viewModel.viewState.observe(viewLifecycleOwner) { handleViewState(it) }
     }
 
     private fun handleViewState(viewState: PopularMoviesViewState) = with(binding) {
@@ -55,6 +61,7 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
     }
 
     private fun onMovieSelected(movie: MovieResume) {
-        findNavController().navigate(PopularMoviesFragmentDirections.navFromHomeToDetail(movie.id))
+        val navFromHomeToDetail = PopularMoviesFragmentDirections.navFromHomeToDetail(movie.id)
+        findNavController().navigate(navFromHomeToDetail)
     }
 }

@@ -8,7 +8,7 @@
     android:paddingBottom="8dp">
 
     <ImageView
-        android:id="@+id/movie_poster"
+        android:id="@+id/movie_poster_image_view"
         android:layout_width="90dp"
         android:layout_height="140dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster_image_view"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="It" />
 
@@ -44,7 +44,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster_image_view"
         app:layout_constraintTop_toBottomOf="@id/movie_title"
         tools:text="In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise." />
 </androidx.constraintlayout.widget.ConstraintLayout>

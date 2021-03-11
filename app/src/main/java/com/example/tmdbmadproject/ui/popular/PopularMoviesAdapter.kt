@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tmdbmadproject.base.loadFromUrl
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.ListItemMovieBinding
 
@@ -41,7 +42,7 @@ class PopularMoviesViewHolder(
     fun bind(movie: MovieResume) = with(binding) {
         movieTitle.text = movie.title
         movieDescription.text = movie.overview
-        Glide.with(root).load(movie.posterUrl).into(moviePoster)
+        moviePosterImageView.loadFromUrl(root, movie.posterUrl)
         root.setOnClickListener { listener.invoke(movie) }
     }
 }
