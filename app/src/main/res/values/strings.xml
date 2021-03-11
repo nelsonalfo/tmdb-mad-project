@@ -6,4 +6,7 @@
     <string name="title_upcoming">Upcoming</string>
     <string name="content_poster_image">Poster Image</string>
     <string name="content_backdrop_image">Backdrop Image</string>
+    <string name="only_ranking">Puntuación: %1$f</string>
+    <string name="only_votes">Votos: %1$d</string>
+    <string name="ranking_and_votes">Puntuación: %1$.1f - Votos: %2$d</string>
 </resources>

@@ -17,3 +17,23 @@ data class Images(
     @SerializedName("profile_sizes") var profileSizes: List<String>?,
     @SerializedName("still_sizes") var stillSizes: List<String>?
 )
+
+fun Images.generatePosterUrl(posterPath: String): String {
+    return generateImageUrl(imageSizes = posterSizes, targetSize = "w500", imagePath = posterPath)
+}
+
+fun Images.generateBackdropUrl(backdropPath: String): String {
+    return generateImageUrl(imageSizes = backdropSizes, targetSize = "w1280", imagePath = backdropPath)
+}
+
+
+private fun Images.generateImageUrl(imageSizes: List<String>?, targetSize: String, imagePath: String): String {
+    return if (imageSizes.isNullOrEmpty() || imagePath.isEmpty()) {
+        ""
+    } else {
+        val baseHttpsUrl = baseUrl?.replace("http", "https")
+        val imageSize = imageSizes.find { imageSize -> imageSize == targetSize } ?: imageSizes[0]
+
+        "$baseHttpsUrl$imageSize$imagePath"
+    }
+}

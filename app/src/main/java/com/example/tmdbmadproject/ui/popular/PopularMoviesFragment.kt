@@ -13,6 +13,7 @@ import com.example.tmdbmadproject.base.show
 import com.example.tmdbmadproject.base.visible
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.FragmentPopularMoviesBinding
+import com.example.tmdbmadproject.ui.detail.MovieDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,6 +55,6 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
     }
 
     private fun onMovieSelected(movie: MovieResume) {
-        findNavController().navigate(R.id.nav_from_home_to_detail)
+        findNavController().navigate(PopularMoviesFragmentDirections.navFromHomeToDetail(movie.id))
     }
 }
