@@ -31,5 +31,10 @@
         android:id="@+id/detailFragment"
         android:name="com.example.tmdbmadproject.ui.detail.MovieDetailFragment"
         android:label="Details"
-        tools:layout="@layout/fragment_movie_detail" />
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="movieId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
