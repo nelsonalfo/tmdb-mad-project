@@ -1,9 +1,11 @@
 package com.example.tmdbmadproject.ui.detail
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.tmdbmadproject.R
@@ -22,6 +24,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMovieDetailBinding.inflate(inflater, container, false)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        postponeEnterTransition()
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,9 +55,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     }
 
     private fun handleViewState(viewState: MovieDetailViewState) = with(binding) {
-        progressBar.show = viewState.loading
+        progressBar.show = false
         movieDetailErrorContainer.visible = viewState.error
-        movieDetailContainer.visible = !viewState.loading && !viewState.error
+        movieDetailContainer.visible = true
 
         movieGenders.text = viewState.genres
         movieTitle.text = viewState.movieTitle
@@ -67,6 +76,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
             visible = text.isNotEmpty()
         }
+
+        startPostponedEnterTransitionAfterDataLoaded()
+    }
+
+    private fun startPostponedEnterTransitionAfterDataLoaded() {
+        val parentViewGroup = binding.root.parent as? ViewGroup
+        parentViewGroup?.doOnPreDraw { startPostponedEnterTransition() }
     }
 }
 

@@ -1,15 +1,13 @@
 package com.example.tmdbmadproject.ui.popular
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.tmdbmadproject.base.loadFromUrl
 import com.example.tmdbmadproject.data.model.MovieResume
 import com.example.tmdbmadproject.databinding.ListItemMovieBinding
 
-class PopularMoviesAdapter(private val listener: (movie: MovieResume) -> Unit) : RecyclerView.Adapter<PopularMoviesViewHolder>() {
+class PopularMoviesAdapter(private val listener: (movie: MovieResume, itemBinding: ListItemMovieBinding) -> Unit) : RecyclerView.Adapter<PopularMoviesViewHolder>() {
     private val dataSet: MutableList<MovieResume> = mutableListOf()
 
     fun loadMovies(movies: List<MovieResume>) {
@@ -36,13 +34,16 @@ class PopularMoviesAdapter(private val listener: (movie: MovieResume) -> Unit) :
 
 class PopularMoviesViewHolder(
     private val binding: ListItemMovieBinding,
-    private val listener: (movie: MovieResume) -> Unit
+    private val listener: (movie: MovieResume, itemBinding: ListItemMovieBinding) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: MovieResume) = with(binding) {
+        root.setOnClickListener { listener.invoke(movie, binding) }
         movieTitle.text = movie.title
         movieDescription.text = movie.overview
-        moviePosterImageView.loadFromUrl(root, movie.posterUrl)
-        root.setOnClickListener { listener.invoke(movie) }
+        moviePosterImageView.apply {
+            transitionName = movie.posterPath
+            loadFromUrl(root, movie.posterUrl)
+        }
     }
 }
