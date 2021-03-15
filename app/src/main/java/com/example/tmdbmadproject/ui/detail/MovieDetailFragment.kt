@@ -60,25 +60,26 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         movieDetailErrorContainer.visible = viewState.error
         movieDetailContainer.visible = true
 
-        movieGenders.text = viewState.genres
-        movieTitle.text = viewState.movieTitle
-        movieDescription.text = viewState.overView
+        movieBackdropImageView.loadFromUrl(this@MovieDetailFragment, viewState.backdropUrl) {
+            moviePosterImageView.loadFromUrl(this@MovieDetailFragment, viewState.posterUrl) {
+                movieGenders.text = viewState.genres
+                movieTitle.text = viewState.movieTitle
+                movieDescription.text = viewState.overView
 
-        movieBackdropImageView.loadFromUrl(this@MovieDetailFragment, viewState.backdropUrl)
-        moviePosterImageView.loadFromUrl(this@MovieDetailFragment, viewState.posterUrl)
+                movieVotes.apply {
+                    text = when {
+                        viewState.votes > 0 && viewState.ranking > 0 -> getString(R.string.ranking_and_votes, viewState.ranking, viewState.votes)
+                        viewState.votes > 0 -> getString(R.string.only_votes, viewState.votes)
+                        viewState.votes > 0 -> getString(R.string.only_ranking, viewState.ranking)
+                        else -> ""
+                    }
 
-        movieVotes.apply {
-            text = when {
-                viewState.votes > 0 && viewState.ranking > 0 -> getString(R.string.ranking_and_votes, viewState.ranking, viewState.votes)
-                viewState.votes > 0 -> getString(R.string.only_votes, viewState.votes)
-                viewState.votes > 0 -> getString(R.string.only_ranking, viewState.ranking)
-                else -> ""
+                    visible = text.isNotEmpty()
+                }
+
+                startPostponedEnterTransitionAfterDataLoaded()
             }
-
-            visible = text.isNotEmpty()
         }
-
-        startPostponedEnterTransitionAfterDataLoaded()
     }
 
     private fun startPostponedEnterTransitionAfterDataLoaded() {
