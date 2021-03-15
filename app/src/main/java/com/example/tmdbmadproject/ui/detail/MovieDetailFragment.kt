@@ -1,13 +1,13 @@
 package com.example.tmdbmadproject.ui.detail
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import com.example.tmdbmadproject.R
 import com.example.tmdbmadproject.base.BaseFragment
 import com.example.tmdbmadproject.base.loadFromUrl
@@ -26,6 +26,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
         FragmentMovieDetailBinding.inflate(inflater, container, false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_right)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         postponeEnterTransition()
 

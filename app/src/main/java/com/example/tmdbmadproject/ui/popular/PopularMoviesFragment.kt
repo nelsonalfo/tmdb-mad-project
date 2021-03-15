@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.example.tmdbmadproject.base.BaseFragment
 import com.example.tmdbmadproject.base.show
 import com.example.tmdbmadproject.base.visible
@@ -28,7 +29,9 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
         FragmentPopularMoviesBinding.inflate(inflater, container, false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
         postponeEnterTransition()
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
