@@ -31,7 +31,6 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/movie_backdrop_image_guideline"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/movie_poster_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:transitionName="poster_image_view"
-                app:cardBackgroundColor="#111"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/movie_poster_image_guideline"
