@@ -29,7 +29,7 @@ class PopularMoviesFragment : BaseFragment<FragmentPopularMoviesBinding>() {
         FragmentPopularMoviesBinding.inflate(inflater, container, false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
+        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade)
         postponeEnterTransition()
 
         return super.onCreateView(inflater, container, savedInstanceState)
