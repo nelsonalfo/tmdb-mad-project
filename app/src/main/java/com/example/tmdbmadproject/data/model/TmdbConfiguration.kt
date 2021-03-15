@@ -31,9 +31,7 @@ private fun Images.generateImageUrl(imageSizes: List<String>?, targetSize: Strin
     return if (imageSizes.isNullOrEmpty() || imagePath.isEmpty()) {
         ""
     } else {
-        val baseHttpsUrl = baseUrl?.replace("http", "https")
         val imageSize = imageSizes.find { imageSize -> imageSize == targetSize } ?: imageSizes[0]
-
-        "$baseHttpsUrl$imageSize$imagePath"
+        "$secureBaseUrl$imageSize$imagePath"
     }
 }
