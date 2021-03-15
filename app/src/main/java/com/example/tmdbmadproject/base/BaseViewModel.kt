@@ -1,5 +1,6 @@
 package com.example.tmdbmadproject.base
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,11 @@ abstract class BaseViewModel<ViewState : BaseViewState, Action : BaseAction, Int
     }
 
     protected abstract fun onReduceState(action: Action): ViewState
+
+    @VisibleForTesting
+    fun changeState(state: ViewState) {
+        this.state = state
+    }
 }
 
 interface BaseViewState
