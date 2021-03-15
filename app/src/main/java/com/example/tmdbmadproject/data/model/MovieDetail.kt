@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class MovieDetail(
     @SerializedName("adult") var adult: Boolean = false,
     @SerializedName("backdrop_path") var backdropPath: String = "",
-    @SerializedName("belongs_to_collection") var belongsToCollection: Any?,
+    @SerializedName("belongs_to_collection") var belongsToCollection: Any? = null,
     @SerializedName("budget") var budget: Int = 0,
     @SerializedName("genres") var genres: List<Genre> = emptyList(),
     @SerializedName("homepage") var homepage: String = "",
