@@ -1,14 +1,19 @@
 package com.example.tmdbmadproject.base
 
+import android.graphics.drawable.Drawable
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun BottomNavigationView.setupWithNaveController(navController: NavController, topLevelDestinations: Set<Int>) {
@@ -31,14 +36,38 @@ var ContentLoadingProgressBar.show: Boolean
         if (value) show() else hide()
     }
 
-fun ImageView.loadFromUrl(fragment: Fragment, imageUrl: String) {
+fun ImageView.loadFromUrl(fragment: Fragment, imageUrl: String, listener: ((loaded: Boolean) -> Unit)? = null) {
     if (imageUrl.isNotEmpty()) {
-        Glide.with(fragment).load(imageUrl).into(this)
+        val requestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                listener?.invoke(false)
+                return false
+            }
+
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                listener?.invoke(true)
+                return false
+            }
+        }
+
+        Glide.with(fragment).load(imageUrl).listener(requestListener).into(this)
     }
 }
 
-fun ImageView.loadFromUrl(view: View, imageUrl: String) {
+fun ImageView.loadFromUrl(view: View, imageUrl: String, listener: ((loaded: Boolean) -> Unit)? = null) {
     if (imageUrl.isNotEmpty()) {
-        Glide.with(view).load(imageUrl).into(this)
+        val requestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                listener?.invoke(false)
+                return false
+            }
+
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                listener?.invoke(true)
+                return false
+            }
+        }
+
+        Glide.with(view).load(imageUrl).listener(requestListener).into(this)
     }
 }
