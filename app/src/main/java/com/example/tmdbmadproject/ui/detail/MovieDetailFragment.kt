@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -25,12 +24,16 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMovieDetailBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupTransitions()
+    }
+
+    private fun setupTransitions() {
         enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_right)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        postponeEnterTransition()
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        postponeEnterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,35 +59,32 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     }
 
     private fun handleViewState(viewState: MovieDetailViewState) = with(binding) {
-        progressBar.show = false
+        progressBar.show = viewState.loading
         movieDetailErrorContainer.visible = viewState.error
-        movieDetailContainer.visible = true
+        movieDetailContainer.visible = !viewState.error && !viewState.loading
 
-        movieBackdropImageView.loadFromUrl(this@MovieDetailFragment, viewState.backdropUrl) {
-            moviePosterImageView.loadFromUrl(this@MovieDetailFragment, viewState.posterUrl) {
-                movieGenders.text = viewState.genres
-                movieTitle.text = viewState.movieTitle
-                movieDescription.text = viewState.overView
+        if (viewState.error) {
+            startPostponedEnterTransition()
+        } else {
+            movieBackdropImageView.loadFromUrl(this@MovieDetailFragment, viewState.backdropUrl) {
+                moviePosterImageView.loadFromUrl(this@MovieDetailFragment, viewState.posterUrl) {
+                    movieGenders.text = viewState.genres
+                    movieTitle.text = viewState.movieTitle
+                    movieDescription.text = viewState.overView
+                    movieVotes.text = getVotesText(viewState)
+                    movieVotes.visible = movieVotes.text.isNotEmpty()
 
-                movieVotes.apply {
-                    text = when {
-                        viewState.votes > 0 && viewState.ranking > 0 -> getString(R.string.ranking_and_votes, viewState.ranking, viewState.votes)
-                        viewState.votes > 0 -> getString(R.string.only_votes, viewState.votes)
-                        viewState.votes > 0 -> getString(R.string.only_ranking, viewState.ranking)
-                        else -> ""
-                    }
-
-                    visible = text.isNotEmpty()
+                    startPostponedEnterTransition()
                 }
-
-                startPostponedEnterTransitionAfterDataLoaded()
             }
         }
     }
 
-    private fun startPostponedEnterTransitionAfterDataLoaded() {
-        val parentViewGroup = binding.root.parent as? ViewGroup
-        parentViewGroup?.doOnPreDraw { startPostponedEnterTransition() }
+    private fun getVotesText(viewState: MovieDetailViewState) = when {
+        viewState.votes > 0 && viewState.ranking > 0 -> getString(R.string.ranking_and_votes, viewState.ranking, viewState.votes)
+        viewState.votes > 0 -> getString(R.string.only_votes, viewState.votes)
+        viewState.votes > 0 -> getString(R.string.only_ranking, viewState.ranking)
+        else -> ""
     }
 }
 
