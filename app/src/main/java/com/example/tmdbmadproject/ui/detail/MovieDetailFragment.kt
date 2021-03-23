@@ -8,10 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.example.tmdbmadproject.R
-import com.example.tmdbmadproject.base.BaseFragment
-import com.example.tmdbmadproject.base.loadFromUrl
-import com.example.tmdbmadproject.base.show
-import com.example.tmdbmadproject.base.visible
+import com.example.tmdbmadproject.base.*
 import com.example.tmdbmadproject.databinding.FragmentMovieDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +28,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
     private fun setupTransitions() {
         enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_right)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move).onTransitionEnd {
+            binding.movieDetailContainer.transitionToEnd()
+        }
 
         postponeEnterTransition()
     }

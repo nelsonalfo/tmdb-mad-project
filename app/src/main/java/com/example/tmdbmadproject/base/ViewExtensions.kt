@@ -9,6 +9,8 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.Transition
+import androidx.transition.TransitionListenerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -70,4 +72,12 @@ fun ImageView.loadFromUrl(view: View, imageUrl: String, listener: ((loaded: Bool
 
         Glide.with(view).load(imageUrl).listener(requestListener).into(this)
     }
+}
+
+fun Transition.onTransitionEnd(action: () -> Unit): Transition {
+    return addListener(object : TransitionListenerAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            action.invoke()
+        }
+    })
 }
